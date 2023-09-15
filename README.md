@@ -7,6 +7,17 @@ Tiller is a command line interface for transforming text files into HTML files.
 - Easily transform multiple files at once
 - Customizable output directory
 
+## Installation
+
+Ensure Python is installed
+
+`python --version`
+
+Install the required libraries
+
+`pip install "type[all]"`
+`pip install Markdown`
+
 ## Options:
 
     --version, -v  Print the current version of Tiller.
