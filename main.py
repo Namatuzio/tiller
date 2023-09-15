@@ -60,15 +60,20 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output)
+            else:
+                print(f"{file} is not a .txt file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            text_file = text_file.read()
-            if dir.find("\\") != -1:
-                title = dir.split("\\")[-1]
-                title = title.split(".")[-2]
-                WriteHTML(text_file, title, output)
+            if dir.split(".")[1] == "txt":
+                text_file = text_file.read()
+                if dir.find("\\") != -1:
+                    title = dir.split("\\")[-1]
+                    title = title.split(".")[-2]
+                    WriteHTML(text_file, title, output)
+                else:
+                    WriteHTML(text_file, dir.split(".")[0], output)
             else:
-                WriteHTML(text_file, dir.split(".")[0], output)
+                print(f"{dir} is not a .txt file. Skipping... \n")
 
 
 
