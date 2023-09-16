@@ -23,7 +23,7 @@ Arguments:
 Options:
   --version, -v  Print the current version of Tiller.
   --help, -h     Show this message and exit.
-  --output, -o   Change the output directory of the .html files.\n"""
+  --output, -o   Specify the name of the folder which the generated files will appear.\n"""
 
 app = typer.Typer(add_completion=False)
 
@@ -56,7 +56,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
         
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
-            if(file.split(".")[1] == "txt"):
+            if(file.split(".")[-1] == "txt"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output)
@@ -64,7 +64,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 print(f"{file} is not a .txt file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if dir.split(".")[1] == "txt":
+            if dir.split(".")[-1] == "txt":
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
@@ -81,8 +81,7 @@ def WriteHTML(text:str, title:str, output:str = "til"):
     html = markdown.markdown(text)
 
     with open(f"{output}/{title}.html", "w") as html_file:
-        html_content = """
-<!DOCTYPE html>
+        html_content = """<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -91,9 +90,11 @@ def WriteHTML(text:str, title:str, output:str = "til"):
     </head>
     <h1>""" + title + """</h1>
     <body>
-        """ + html.replace("\n", "\n\t\t") + """
+        """ + html.replace("\n", "\n\t\t")  + """
     </body>
 </html>"""
+        if(html_content.find("<li>") != -1):
+            html_content = html_content.replace("<li>", "\t<li>")
         html_file.write(html_content)
     print(f"Converted {title}.txt to {title}.html")
 
