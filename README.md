@@ -15,7 +15,7 @@ Ensure Python is installed
 
 Install the required libraries
 
-`pip install "type[all]"`
+`pip install "typer[all]"`
 `pip install Markdown`
 
 ## Options:
