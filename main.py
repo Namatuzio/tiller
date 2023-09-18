@@ -23,7 +23,7 @@ Arguments:
 Options:
   --version, -v  Print the current version of Tiller.
   --help, -h     Show this message and exit.
-  --output, -o   Specify the name of the folder which the generated files will appear. WILL DELETE FOLDER FILE CONTENTS.\n"""
+  --output, -o   Specify the name of the folder which the generated files will appear.\n"""
 
 app = typer.Typer(add_completion=False)
 
