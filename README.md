@@ -1,7 +1,7 @@
 # Tiller
 Tiller is a command line interface for transforming text files into HTML files.
 
-### Features
+## Features
 
 - Transform text files into HTML files
 - Easily transform multiple files at once
