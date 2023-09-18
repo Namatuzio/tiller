@@ -23,7 +23,7 @@ Arguments:
 Options:
   --version, -v  Print the current version of Tiller.
   --help, -h     Show this message and exit.
-  --output, -o   Specify the name of the folder which the generated files will appear.\n"""
+  --output, -o   Specify the name of the folder which the generated files will appear. WILL DELETE FOLDER FILE CONTENTS.\n"""
 
 app = typer.Typer(add_completion=False)
 
@@ -52,7 +52,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
         for file in os.listdir(output):
             os.remove(output + "/" + file)
         os.rmdir(output)
-        os.mkdir("./" + output)
+        os.mkdir(output)
         
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
