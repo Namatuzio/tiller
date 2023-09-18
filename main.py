@@ -50,10 +50,12 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
         os.mkdir(output)
     elif(os.path.exists(output)):
         for file in os.listdir(output):
-            os.remove(output + "/" + file)
-        os.rmdir(output)
-        os.mkdir(output)
-        
+            if(file.split(".")[-1] == "html"):
+                os.remove(output + "/" + file)
+        if(os.listdir(output) == []):
+            os.rmdir(output)
+            os.mkdir(output)
+
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
             if(file.split(".")[-1] == "txt"):
