@@ -83,6 +83,15 @@ def WriteHTML(text:str, title:str, output:str = "til"):
     with open(f"{output}/{title}.html", "w") as html_file:
         html_content = """<!DOCTYPE html>
 <html lang="en">
+    <style>
+    body {
+        background-color: rgb(0, 116, 145);
+        text-align: center;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: xx-large;
+    }
+    </style>
     <head>
         <meta charset="UTF-8">
         <title>""" + title + """</title>
