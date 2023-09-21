@@ -119,8 +119,11 @@ def WriteHTML(text:str, title:str, output:str = "til"):
         if(html_content.find("<li>") != -1):
             html_content = html_content.replace("<li>", "\t<li>")
         html_file.write(html_content)
-    print(f"Converted {title}.txt to {title}.html")
-
+    if(h1_start_index >= 0):
+        print(f"Converted {title}.md to {title}.html")
+    else:
+        print(f"Converted {title}.txt to {title}.html")
+    
     
 
 if __name__ == "__main__":
