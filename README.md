@@ -139,7 +139,7 @@ Hi
 ### Transform a markdown file:
 ```
 .\main.py .\example3.md
-Converted example3.txt to example3.html
+Converted example3.md to example3.html
 ```
 ```
 .\example3.md
