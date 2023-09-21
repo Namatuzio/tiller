@@ -17,7 +17,7 @@ import markdown
 
 __version__ = "0.1.0"
 __help__ = """Usage: main.py [OPTIONS] DIR \n
-  Convert .txt files to .html files.\n
+  Convert .txt or .md files to .html files.\n
 Arguments:
   DIR  [required]\n
 Options:
@@ -43,7 +43,7 @@ def help_callback(value: bool):
 @app.command()
 def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v", callback=version_callback, help="Print the current version of Tiller."), 
          help: Optional[bool] = typer.Option(None, "--help", "-h", callback=help_callback, help="Print the help message."), output: Optional[str] = typer.Option(None, "--output", "-o", help="Change the output directory of the .html files.")):
-    """Convert .txt files to .html files."""
+    """Convert .txt or .md files to .html files."""
     if(output == None):
         output = "til"
     if(not os.path.exists(output)):
