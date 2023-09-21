@@ -83,7 +83,16 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
 
 
 def WriteHTML(text:str, title:str, output:str = "til"):
-    html = markdown.markdown(text)
+    # Check for markdown heading syntax before converting to html
+    h1_content = title
+    h1_start_index = text.find("#")
+    h1_end_index = text.find("\n", h1_start_index + 1)
+    markdown_heading1 = text[h1_start_index + 1:h1_end_index].strip()
+    new_text_content = text
+    if(h1_start_index >= 0):
+        h1_content = markdown_heading1
+        new_text_content = text[h1_end_index:]
+    html = markdown.markdown(new_text_content)
 
     with open(f"{output}/{title}.html", "w") as html_file:
         html_content = """<!DOCTYPE html>
@@ -102,7 +111,7 @@ def WriteHTML(text:str, title:str, output:str = "til"):
         <title>""" + title + """</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <h1>""" + title + """</h1>
+    <h1>""" + h1_content + """</h1>
     <body>
         """ + html.replace("\n", "\n\t\t")  + """
     </body>
