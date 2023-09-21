@@ -58,15 +58,17 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
 
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
-            if(file.split(".")[-1] == "txt"):
+            # Added a condition to check for markdown file
+            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output)
             else:
-                print(f"{file} is not a .txt file. Skipping... \n")
+                # Added an output to indicate if a file was not .md in addition to not being a .txt file
+                print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if dir.split(".")[-1] == "txt":
+            if (dir.split(".")[-1] == "txt" or dir.split(".")[-1] == "md"):
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
@@ -74,8 +76,9 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                     WriteHTML(text_file, title, output)
                 else:
                     WriteHTML(text_file, dir.split(".")[0], output)
+                    # Added an output to indicate if a file was not .md in addition to not being a .txt file
             else:
-                print(f"{dir} is not a .txt file. Skipping... \n")
+                print(f"{dir} is not a .txt file or .md file. Skipping... \n")
 
 
 
