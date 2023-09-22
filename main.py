@@ -17,7 +17,7 @@ import markdown
 
 __version__ = "0.1.0"
 __help__ = """Usage: main.py [OPTIONS] DIR \n
-  Convert .txt files to .html files.\n
+  Convert .txt or .md files to .html files.\n
 Arguments:
   DIR  [required]\n
 Options:
@@ -43,7 +43,7 @@ def help_callback(value: bool):
 @app.command()
 def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v", callback=version_callback, help="Print the current version of Tiller."), 
          help: Optional[bool] = typer.Option(None, "--help", "-h", callback=help_callback, help="Print the help message."), output: Optional[str] = typer.Option(None, "--output", "-o", help="Change the output directory of the .html files.")):
-    """Convert .txt files to .html files."""
+    """Convert .txt or .md files to .html files."""
     if(output == None):
         output = "til"
     if(not os.path.exists(output)):
@@ -58,15 +58,17 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
 
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
-            if(file.split(".")[-1] == "txt"):
+            # Added a condition to check for markdown file
+            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output)
             else:
-                print(f"{file} is not a .txt file. Skipping... \n")
+                # Added an output to indicate if a file was not .md in addition to not being a .txt file
+                print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if dir.split(".")[-1] == "txt":
+            if (dir.split(".")[-1] == "txt" or dir.split(".")[-1] == "md"):
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
@@ -74,13 +76,23 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                     WriteHTML(text_file, title, output)
                 else:
                     WriteHTML(text_file, dir.split(".")[0], output)
+                    # Added an output to indicate if a file was not .md in addition to not being a .txt file
             else:
-                print(f"{dir} is not a .txt file. Skipping... \n")
+                print(f"{dir} is not a .txt file or .md file. Skipping... \n")
 
 
 
 def WriteHTML(text:str, title:str, output:str = "til"):
-    html = markdown.markdown(text)
+    # Check for markdown heading syntax before converting to html
+    h1_content = title
+    h1_start_index = text.find("#")
+    h1_end_index = text.find("\n", h1_start_index + 1)
+    markdown_heading1 = text[h1_start_index + 1:h1_end_index].strip()
+    new_text_content = text
+    if(h1_start_index >= 0):
+        h1_content = markdown_heading1
+        new_text_content = text[h1_end_index:]
+    html = markdown.markdown(new_text_content)
 
     with open(f"{output}/{title}.html", "w") as html_file:
         html_content = """<!DOCTYPE html>
@@ -99,7 +111,7 @@ def WriteHTML(text:str, title:str, output:str = "til"):
         <title>""" + title + """</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <h1>""" + title + """</h1>
+    <h1>""" + h1_content + """</h1>
     <body>
         """ + html.replace("\n", "\n\t\t")  + """
     </body>
@@ -107,8 +119,11 @@ def WriteHTML(text:str, title:str, output:str = "til"):
         if(html_content.find("<li>") != -1):
             html_content = html_content.replace("<li>", "\t<li>")
         html_file.write(html_content)
-    print(f"Converted {title}.txt to {title}.html")
-
+    if(h1_start_index >= 0):
+        print(f"Converted {title}.md to {title}.html")
+    else:
+        print(f"Converted {title}.txt to {title}.html")
+    
     
 
 if __name__ == "__main__":

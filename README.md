@@ -5,6 +5,7 @@ Tiller is a command line interface for transforming text files into HTML files.
 ## Features
 
 - Transform text files into HTML files
+- Transform markdown files into HTML files (Markdown heading1 will be transformed into html \<h1\>)
 - Easily transform multiple files at once
 - Customizable output directory
 
@@ -135,13 +136,55 @@ Hi
     </body>
 </html>
 ```
+### Transform a markdown file:
+```
+.\main.py .\example3.md
+Converted example3.md to example3.html
+```
+```
+.\example3.md
+
+# Heading
+
+Lorem ipsum dolor sit amet. Aut unde eligendi ut labore laboriosam et nihil commodi ut dolorem dolor qui tempora exercitationem qui quis error eum unde quaerat! Eum autem quam ut quae voluptates quo veritatis porro.
+
+Ut nihil impedit in galisum assumenda cum incidunt nihil rem dolorem distinctio et doloremque maiores id labore ipsum quo suscipit saepe. Sed veniam debitis in natus repudiandae rem excepturi accusamus sit dolorem quia aut magni voluptatem id incidunt Quis aut voluptatibus quibusdam.
+
+Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempore aut consectetur maiores in corrupti inventore eum veniam aliquam.
+
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+    body {
+        background-color: rgb(0, 116, 145);
+        text-align: center;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: xx-large;
+    }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <title>example3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <h1>Heading</h1>
+    <body>
+        <p>Lorem ipsum dolor sit amet. Aut unde eligendi ut labore laboriosam et nihil commodi ut dolorem dolor qui tempora exercitationem qui quis error eum unde quaerat! Eum autem quam ut quae voluptates quo veritatis porro.</p>
+	<p>Ut nihil impedit in galisum assumenda cum incidunt nihil rem dolorem distinctio et doloremque maiores id labore ipsum quo suscipit saepe. Sed veniam debitis in natus repudiandae rem excepturi accusamus sit dolorem quia aut magni voluptatem id incidunt Quis aut voluptatibus quibusdam.</p>
+	<p>Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempore aut consectetur maiores in corrupti inventore eum veniam aliquam.</p>
+    </body>
+</html>
+```
 
 ### Display the help message:
 ```
 .\main.py --help (or -h)
 
 Usage: main.py [OPTIONS] DIR 
-  Convert .txt files to .html files.
+  Convert .txt or .md files to .html files.
 Arguments:
   DIR  [required]\n
 Options:
