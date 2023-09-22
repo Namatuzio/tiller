@@ -1,5 +1,5 @@
 # Tiller
-Tiller is a command line interface for transforming text files into HTML files. 
+Tiller is a command line interface for transforming text and markdown files into HTML files. 
 [Samples can be found here!](https://namatuzio.github.io/tiller/)
 
 ## Features
