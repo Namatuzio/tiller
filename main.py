@@ -23,7 +23,8 @@ Arguments:
 Options:
   --version, -v  Print the current version of Tiller.
   --help, -h     Show this message and exit.
-  --output, -o   Specify the name of the folder which the generated files will appear.\n"""
+  --output, -o   Specify the name of the folder which the generated files will appear.
+  --lang, -l    Specify the language of the generated HTML file.\n"""
 
 app = typer.Typer(add_completion=False)
 
@@ -42,19 +43,24 @@ def help_callback(value: bool):
 
 @app.command()
 def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v", callback=version_callback, help="Print the current version of Tiller."), 
-         help: Optional[bool] = typer.Option(None, "--help", "-h", callback=help_callback, help="Print the help message."), output: Optional[str] = typer.Option(None, "--output", "-o", help="Change the output directory of the .html files.")):
+         help: Optional[bool] = typer.Option(None, "--help", "-h", callback=help_callback, help="Print the help message."), output: Optional[str] = typer.Option(None, "--output", "-o", help="Change the output directory of the .html files."),
+         lang: Optional[str] = typer.Option(None, "--lang", "-l", help="Specify the language of the generated HTML file.")):
     """Convert .txt or .md files to .html files."""
     if(output == None):
         output = "til"
-    if(not os.path.exists(output)):
-        os.mkdir(output)
-    elif(os.path.exists(output)):
+    if(lang == None):
+        lang = "en-CA"
+    try:
         for file in os.listdir(output):
-            if(file.split(".")[-1] == "html"):
-                os.remove(output + "/" + file)
+            if(os.path.splitext(file)[-1] == "html"):
+                os.remove(output + file)
         if(os.listdir(output) == []):
             os.rmdir(output)
             os.mkdir(output)
+        os.makedirs(output, exist_ok=True)
+    except OSError as error:
+        print(error)
+        exit(-1)
 
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
@@ -62,27 +68,27 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
             if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
-                    WriteHTML(text_file, file.split(".")[0], output)
+                    WriteHTML(text_file, file.split(".")[0], output, lang)
             else:
                 # Added an output to indicate if a file was not .md in addition to not being a .txt file
                 print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if (dir.split(".")[-1] == "txt" or dir.split(".")[-1] == "md"):
+            if (os.path.splitext(dir)[-1] == "html" or os.path.splitext(dir)[-1] == "md"):
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
                     title = title.split(".")[-2]
-                    WriteHTML(text_file, title, output)
+                    WriteHTML(text_file, title, output, lang)
                 else:
-                    WriteHTML(text_file, dir.split(".")[0], output)
-                    # Added an output to indicate if a file was not .md in addition to not being a .txt file
+                    WriteHTML(text_file, dir.split(".")[0], output, lang)
             else:
+                # Added an output to indicate if a file was not .md in addition to not being a .txt file
                 print(f"{dir} is not a .txt file or .md file. Skipping... \n")
 
 
 
-def WriteHTML(text:str, title:str, output:str = "til"):
+def WriteHTML(text:str, title:str, output:str = "til", lang:str = "en-CA"):
     # Check for markdown heading syntax before converting to html
     h1_content = title
     h1_start_index = text.find("#")
@@ -96,7 +102,7 @@ def WriteHTML(text:str, title:str, output:str = "til"):
 
     with open(f"{output}/{title}.html", "w") as html_file:
         html_content = """<!DOCTYPE html>
-<html lang="en">
+<html lang=\"""" + lang + """\">
     <style>
     body {
         background-color: rgb(0, 116, 145);
