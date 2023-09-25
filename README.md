@@ -8,6 +8,7 @@ Tiller is a command line interface for transforming text and markdown files into
 - Transform markdown files into HTML files (Markdown heading1 will be transformed into html \<h1\>)
 - Easily transform multiple files at once
 - Customizable output directory
+- Language support for generated HTML files
 
 ## Installation
 
@@ -27,6 +28,7 @@ pip install Markdown
     --version, -v  Print the current version of Tiller.
     --help, -h     Print the help message.
     --output, -o   Change the output directory of the .html files.
+    --lang, -l    Specify the language of the generated HTML file.
 
 ## Usage:
 
@@ -178,6 +180,49 @@ Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempor
     </body>
 </html>
 ```
+
+### Generate HTML file with a different language:
+```
+.\main.py --lang fr .\example.txt
+
+Converted example.txt to example.html
+```
+```html
+.\example.txt
+
+Hello
+
+World
+
+How are you?
+```
+```html
+.\til\example.html
+<!DOCTYPE html>
+<html lang="fr">
+    <style>
+    body {
+        background-color: rgb(0, 116, 145);
+        text-align: center;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: xx-large;
+    }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <title>example</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <h1>example</h1>
+    <body>
+        <p>Hello</p>
+		<p>World</p>
+		<p>How are you?</p>
+    </body>
+</html>
+```
+
 
 ### Display the help message:
 ```

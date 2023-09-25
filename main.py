@@ -51,12 +51,6 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     if(lang == None):
         lang = "en-CA"
     try:
-        for file in os.listdir(output):
-            if(os.path.splitext(file)[-1] == "html"):
-                os.remove(output + file)
-        if(os.listdir(output) == []):
-            os.rmdir(output)
-            os.mkdir(output)
         os.makedirs(output, exist_ok=True)
     except OSError as error:
         print(error)
@@ -65,7 +59,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
             # Added a condition to check for markdown file
-            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
+            if(file.split(".")[-1] == ".txt" or file.split(".")[-1] == ".md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output, lang)
@@ -74,7 +68,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if (os.path.splitext(dir)[-1] == "html" or os.path.splitext(dir)[-1] == "md"):
+            if (os.path.splitext(dir)[1] == ".txt" or os.path.splitext(dir)[1] == ".md"):
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
