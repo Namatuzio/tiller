@@ -139,25 +139,26 @@ Hi
 </html>
 ```
 ### Transform a markdown file:
-```
+```md
 .\main.py .\example3.md
-Converted example3.md to example3.html
-```
-```
-.\example3.md
-
 # Heading
+
+
 
 Lorem ipsum dolor sit amet. Aut unde eligendi ut labore laboriosam et nihil commodi ut dolorem dolor qui tempora exercitationem qui quis error eum unde quaerat! Eum autem quam ut quae voluptates quo veritatis porro.
 
+---
+
 Ut nihil impedit in galisum assumenda cum incidunt nihil rem dolorem distinctio et doloremque maiores id labore ipsum quo suscipit saepe. Sed veniam debitis in natus repudiandae rem excepturi accusamus sit dolorem quia aut magni voluptatem id incidunt Quis aut voluptatibus quibusdam.
+
+---
 
 Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempore aut consectetur maiores in corrupti inventore eum veniam aliquam.
 
 ```
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
     <style>
     body {
         background-color: rgb(0, 116, 145);
@@ -175,8 +176,12 @@ Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempor
     <h1>Heading</h1>
     <body>
         <p>Lorem ipsum dolor sit amet. Aut unde eligendi ut labore laboriosam et nihil commodi ut dolorem dolor qui tempora exercitationem qui quis error eum unde quaerat! Eum autem quam ut quae voluptates quo veritatis porro.</p>
-	<p>Ut nihil impedit in galisum assumenda cum incidunt nihil rem dolorem distinctio et doloremque maiores id labore ipsum quo suscipit saepe. Sed veniam debitis in natus repudiandae rem excepturi accusamus sit dolorem quia aut magni voluptatem id incidunt Quis aut voluptatibus quibusdam.</p>
-	<p>Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempore aut consectetur maiores in corrupti inventore eum veniam aliquam.</p>
+		<hr />
+		
+		<p>Ut nihil impedit in galisum assumenda cum incidunt nihil rem dolorem distinctio et doloremque maiores id labore ipsum quo suscipit saepe. Sed veniam debitis in natus repudiandae rem excepturi accusamus sit dolorem quia aut magni voluptatem id incidunt Quis aut voluptatibus quibusdam.</p>
+		<hr />
+		
+		<p>Eum quos harum est rerum necessitatibus aut quae architecto. Non deleniti tempore aut consectetur maiores in corrupti inventore eum veniam aliquam.</p>
     </body>
 </html>
 ```

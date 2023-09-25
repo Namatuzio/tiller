@@ -92,6 +92,10 @@ def WriteHTML(text:str, title:str, output:str = "til", lang:str = "en-CA"):
     if(h1_start_index >= 0):
         h1_content = markdown_heading1
         new_text_content = text[h1_end_index:]
+
+    horiz_line = new_text_content.find("---")
+    if(horiz_line != -1):
+        new_text_content = new_text_content.replace("---", "<hr />")
     html = markdown.markdown(new_text_content)
 
     with open(f"{output}/{title}.html", "w") as html_file:
