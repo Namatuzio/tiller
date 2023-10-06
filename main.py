@@ -14,6 +14,7 @@ import typer
 from typing_extensions import Annotated
 import os
 import markdown
+import tomllib
 
 __version__ = "0.1.0"
 __help__ = """Usage: main.py [OPTIONS] DIR \n
@@ -44,8 +45,24 @@ def help_callback(value: bool):
 @app.command()
 def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v", callback=version_callback, help="Print the current version of Tiller."), 
          help: Optional[bool] = typer.Option(None, "--help", "-h", callback=help_callback, help="Print the help message."), output: Optional[str] = typer.Option(None, "--output", "-o", help="Change the output directory of the .html files."),
-         lang: Optional[str] = typer.Option(None, "--lang", "-l", help="Specify the language of the generated HTML file.")):
+         lang: Optional[str] = typer.Option(None, "--lang", "-l", help="Specify the language of the generated HTML file."), config: Optional[str] = typer.Option(None, "--config", "-c", help="Specify the path to a TOML config file.")):
     """Convert .txt or .md files to .html files."""
+    if(config is not None):
+       try:
+           with open(config, "rb") as configFile:
+               data = tomllib.load(configFile)
+               if data.get("o"):
+                   output = data.get("o")
+               if data.get("output"):
+                   output = data.get("output")
+               if data.get("l"):
+                   lang = data.get("l")
+               if data.get("lang"):
+                   lang = data.get("lang")
+       except tomllib.TOMLDecodeError as error:
+           print(error)
+           print("Error: Please provide a valid config TOML file.")
+           exit(-1)
     if(output == None):
         output = "til"
     if(lang == None):
