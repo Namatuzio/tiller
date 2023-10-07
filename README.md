@@ -8,7 +8,8 @@ Tiller is a command line interface for transforming text and markdown files into
 - Transform markdown files into HTML files (Markdown heading1 will be transformed into html \<h1\>)
 - Easily transform multiple files at once
 - Customizable output directory
-- Language support for generated HTML files
+- Language support for generated HTML file
+- TOML config file support
 
 ## Installation
 
@@ -27,6 +28,7 @@ pip install Markdown
 
     --version, -v  Print the current version of Tiller.
     --help, -h     Print the help message.
+    --config, -c   Specify the path to a TOML config file to be used.
     --output, -o   Change the output directory of the .html files.
     --lang, -l    Specify the language of the generated HTML file.
 
@@ -227,7 +229,17 @@ How are you?
     </body>
 </html>
 ```
+### Transform file(s) using a TOML config file
+```
+.\main.py --config (or -c) .\examples\TOMLExample.toml .\examples
 
+Converted example.txt to example.html
+Converted example2.txt to example2.html
+Converted example3.md to example3.html
+example4.html is not a .txt file or a .md file. Skipping...
+
+TOMLExample.toml is not a .txt file or a .md file. Skipping...
+```
 
 ### Display the help message:
 ```
