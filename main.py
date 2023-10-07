@@ -24,6 +24,7 @@ Arguments:
 Options:
   --version, -v  Print the current version of Tiller.
   --help, -h     Show this message and exit.
+  --config, -c   Specify the path to a TOML config file to be used.
   --output, -o   Specify the name of the folder which the generated files will appear.
   --lang, -l    Specify the language of the generated HTML file.\n"""
 
@@ -76,7 +77,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
             # Added a condition to check for markdown file
-            if(file.split(".")[-1] == ".txt" or file.split(".")[-1] == ".md"):
+            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output, lang)
