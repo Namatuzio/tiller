@@ -58,10 +58,8 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
            print(error)
            print("Error: Please provide a valid config TOML file.")
            exit(-1)
-    if(output == None):
-        output = "til"
-    if(lang == None):
-        lang = "en-CA"
+    output = output or "til"
+    lang = lang or "en-CA"
     try:
         os.makedirs(output, exist_ok=True)
     except OSError as error:
