@@ -50,16 +50,10 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     """Convert .txt or .md files to .html files."""
     if(config is not None):
        try:
-           with open(config, "rb") as configFile:
-               data = tomllib.load(configFile)
-               if data.get("o"):
-                   output = data.get("o")
-               if data.get("output"):
-                   output = data.get("output")
-               if data.get("l"):
-                   lang = data.get("l")
-               if data.get("lang"):
-                   lang = data.get("lang")
+            with open(config, "rb") as configFile:
+                data = tomllib.load(configFile)
+                output = data.get("o") or data.get("output")
+                lang = data.get("l") or data.get("lang")
        except tomllib.TOMLDecodeError as error:
            print(error)
            print("Error: Please provide a valid config TOML file.")
