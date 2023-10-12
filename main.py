@@ -50,16 +50,24 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     """Convert .txt or .md files to .html files."""
     if(config is not None):
        try:
-            with open(config, "rb") as configFile:
-                data = tomllib.load(configFile)
-                output = data.get("o") or data.get("output")
-                lang = data.get("l") or data.get("lang")
+           with open(config, "rb") as configFile:
+               data = tomllib.load(configFile)
+               if data.get("o"):
+                   output = data.get("o")
+               if data.get("output"):
+                   output = data.get("output")
+               if data.get("l"):
+                   lang = data.get("l")
+               if data.get("lang"):
+                   lang = data.get("lang")
        except tomllib.TOMLDecodeError as error:
            print(error)
            print("Error: Please provide a valid config TOML file.")
            exit(-1)
-    output = output or "til"
-    lang = lang or "en-CA"
+    if(output == None):
+        output = "til"
+    if(lang == None):
+        lang = "en-CA"
     try:
         os.makedirs(output, exist_ok=True)
     except OSError as error:
@@ -69,7 +77,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
             # Added a condition to check for markdown file
-            if(CheckFileExtension(file)):
+            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output, lang)
@@ -78,20 +86,18 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if (CheckFileExtension(dir)):
+            if (os.path.splitext(dir)[1] == ".txt" or os.path.splitext(dir)[1] == ".md"):
                 text_file = text_file.read()
-                title = dir.split("\\")[-1].split(".")[-2] if "\\" in dir else "" 
-                print(title)
-                WriteHTML(text_file, title, output, lang)
+                if dir.find("\\") != -1:
+                    title = dir.split("\\")[-1]
+                    title = title.split(".")[-2]
+                    WriteHTML(text_file, title, output, lang)
+                else:
+                    WriteHTML(text_file, dir.split(".")[0], output, lang)
             else:
                 # Added an output to indicate if a file was not .md in addition to not being a .txt file
                 print(f"{dir} is not a .txt file or .md file. Skipping... \n")
 
-def CheckFileExtension(file:str):
-    if(os.path.splitext(file)[1] == ".txt" or os.path.splitext(file)[1] == ".md"):
-        return True
-    else:
-        return False
 
 
 def WriteHTML(text:str, title:str, output:str = "til", lang:str = "en-CA"):
