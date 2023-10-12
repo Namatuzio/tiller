@@ -77,7 +77,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
     if(os.path.isdir(dir)):
         for file in os.listdir(dir):
             # Added a condition to check for markdown file
-            if(file.split(".")[-1] == "txt" or file.split(".")[-1] == "md"):
+            if(CheckFileExtension(file)):
                 with open(dir + "/" + file, "r") as text_file:
                     text_file = text_file.read()
                     WriteHTML(text_file, file.split(".")[0], output, lang)
@@ -86,7 +86,7 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 print(f"{file} is not a .txt file or a .md file. Skipping... \n")
     elif(os.path.isfile(dir)):
         with open(dir, "r") as text_file:
-            if (os.path.splitext(dir)[1] == ".txt" or os.path.splitext(dir)[1] == ".md"):
+            if (CheckFileExtension(dir)):
                 text_file = text_file.read()
                 if dir.find("\\") != -1:
                     title = dir.split("\\")[-1]
@@ -98,6 +98,11 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
                 # Added an output to indicate if a file was not .md in addition to not being a .txt file
                 print(f"{dir} is not a .txt file or .md file. Skipping... \n")
 
+def CheckFileExtension(file:str):
+    if(os.path.splitext(file)[1] == ".txt" or os.path.splitext(file)[1] == ".md"):
+        return True
+    else:
+        return False
 
 
 def WriteHTML(text:str, title:str, output:str = "til", lang:str = "en-CA"):
