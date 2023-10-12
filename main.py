@@ -82,12 +82,9 @@ def main(dir: str, version: Optional[bool] = typer.Option(None, "--version", "-v
         with open(dir, "r") as text_file:
             if (CheckFileExtension(dir)):
                 text_file = text_file.read()
-                if dir.find("\\") != -1:
-                    title = dir.split("\\")[-1]
-                    title = title.split(".")[-2]
-                    WriteHTML(text_file, title, output, lang)
-                else:
-                    WriteHTML(text_file, dir.split(".")[0], output, lang)
+                title = dir.split("\\")[-1].split(".")[-2] if "\\" in dir else "" 
+                print(title)
+                WriteHTML(text_file, title, output, lang)
             else:
                 # Added an output to indicate if a file was not .md in addition to not being a .txt file
                 print(f"{dir} is not a .txt file or .md file. Skipping... \n")
