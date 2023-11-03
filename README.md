@@ -11,19 +11,6 @@ Tiller is a command line interface for transforming text and markdown files into
 - Language support for generated HTML file
 - TOML config file support
 
-## Installation
-
-Ensure Python is installed
-
-`python --version`
-
-Install the required libraries
-
-```
-pip install "typer[all]"
-pip install Markdown
-```
-
 ## Options:
 
     --version, -v  Print the current version of Tiller.
