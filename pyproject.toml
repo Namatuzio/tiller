@@ -1,0 +1,2 @@
+[tool.ruff.format]
+exclude = ["examples/", ".venv/", ".ruff_cache/", "*.md", "*.txt", "LICENSE", ".gitignore"]
