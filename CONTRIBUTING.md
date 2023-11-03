@@ -133,6 +133,20 @@ Ensure Python is installed
 Install the required libraries
 
 ```
-pip install "typer[all]"
-pip install Markdown
+pip install -r requirements.txt
+```
+
+## Code Formatting and Linting
+
+Format code
+```
+ruff format .
+```
+Will automatically format any .py files found.
+Add `# fmt: off` to prevent code blocks from being formatted.
+
+Lint files
+```
+ruff check . --fix - Finds errors and fixes them
+ruff check .       - Shows any errors and the locations where they occur
 ```
