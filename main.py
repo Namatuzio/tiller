@@ -11,7 +11,6 @@
 from typing import Optional
 
 import typer
-from typing_extensions import Annotated
 import os
 import markdown
 import tomllib
@@ -113,7 +112,7 @@ def CheckFileExtension(file: str):
     else:
         return False
 
-
+# fmt: off
 def WriteHTML(text: str, title: str, output: str = "til", lang: str = "en-CA"):
     # Check for markdown heading syntax before converting to html
     h1_content = title
@@ -169,7 +168,7 @@ def WriteHTML(text: str, title: str, output: str = "til", lang: str = "en-CA"):
         print(f"Converted {title}.md to {title}.html")
     else:
         print(f"Converted {title}.txt to {title}.html")
-
+# fmt: on
 
 if __name__ == "__main__":
     app()
