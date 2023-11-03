@@ -142,8 +142,8 @@ pip install -r requirements.txt
 ```
 ruff format .
 ```
-Will automatically format any .py files found.
-Add `# fmt: off` to prevent code blocks from being formatted.
+Automatically formats any .py files found in the directory.
+Add `# fmt: off` and `# fmt: on` at the beginning and end of code blocks to prevent them from being formatted.
 
 ### Lint files
 ```
