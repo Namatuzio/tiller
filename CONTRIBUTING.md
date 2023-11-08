@@ -150,3 +150,23 @@ Add `# fmt: off` and `# fmt: on` at the beginning and end of code blocks to prev
 ruff check . --fix - Finds errors and fixes them
 ruff check .       - Shows any errors and the locations where they occur
 ```
+
+## Running the tests
+
+```bash
+# Runs all tests
+pytest 
+
+# Runs tests that match the filter
+## Recomended filters are "def" for default use cases, "arg" for testing argument functionality, "conv" for testing conversion functionality, and "fe" for testing file extension checking.
+pytest -k "<filter>"
+
+# Runs a specific test
+pytest test_main.py::<test_name> 
+```
+
+### Coverage Report
+
+```bash
+pytest --cov=./ test_main.py
+```
