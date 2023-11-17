@@ -14,7 +14,6 @@ import typer
 import os
 import markdown
 import tomllib
-import argparse
 import sys
 
 __version__ = "0.1.0"

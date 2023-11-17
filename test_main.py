@@ -1,5 +1,3 @@
-import pytest
-import sys
 import os
 from typer.testing import CliRunner
 from main import CheckFileExtension
@@ -26,14 +24,14 @@ def test_main_output_arg():
     with runner.isolated_filesystem():
         examples_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "examples")
         shutil.copytree(examples_dir, "examples")
-        result = runner.invoke(app, ["-o", "output", "examples"])
+        runner.invoke(app, ["-o", "output", "examples"])
         assert os.path.isdir("output") is True
         assert len(os.listdir("output")) > 0
 
 ## Test Lang Flag
 def test_main_lang_arg():
     with runner.isolated_filesystem():
-        result = runner.invoke(app, ["-l", "en", "examples"])
+        runner.invoke(app, ["-l", "en", "examples"])
         if(os.path.isfile("til/example.html")):
             with open("til/example.html") as file:
                 assert "lang=en" in file.read()
@@ -41,7 +39,7 @@ def test_main_lang_arg():
 ## Test Config Flag
 def test_main_config_arg():
     with runner.isolated_filesystem():
-        result = runner.invoke(app, ["-c", "examples/TOMLExample.toml", "examples"])
+        runner.invoke(app, ["-c", "examples/TOMLExample.toml", "examples"])
         if(os.path.isfile("til/example.html")):
             with open("til/example.html") as file:
                 assert "lang=fr-CA" in file.read()
@@ -57,7 +55,7 @@ def test_main_output_lang_arg():
     with runner.isolated_filesystem():
         examples_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "examples")
         shutil.copytree(examples_dir, "examples")
-        result = runner.invoke(app, ["-l", "en", "-o", "output", "examples"])
+        runner.invoke(app, ["-l", "en", "-o", "output", "examples"])
         assert os.path.isdir("output") is True
         assert len(os.listdir("output")) > 0
         if(os.path.isfile("output/example.html")):
@@ -71,7 +69,7 @@ def test_main_dir_def():
     with runner.isolated_filesystem():
         examples_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "examples")
         shutil.copytree(examples_dir, "examples")
-        result = runner.invoke(app, ["examples"])
+        runner.invoke(app, ["examples"])
         assert os.path.isdir("til") is True
         assert len(os.listdir("til")) > 0
 
@@ -85,7 +83,7 @@ def test_main_dir_file_def():
     with runner.isolated_filesystem():
         examples_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "examples")
         shutil.copytree(examples_dir, "examples")
-        result = runner.invoke(app, ["examples/example.txt"])
+        runner.invoke(app, ["examples/example.txt"])
         assert os.path.isdir("til") is True
         assert len(os.listdir("til")) > 0
 
