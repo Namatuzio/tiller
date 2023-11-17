@@ -1,13 +1,5 @@
 # main.py
 
-# running your tool at the command-line with the --version or -v flag should print the tool's name and current version.
-# running your tool at the command-line with the --help or -h flag should print a standard help/usage message showing how to run the tool, which command line flags and arguments can be used, etc.
-# your tool should allow the user to specify either a file or folder of files as input:
-## If the input is a .txt file, it should process that file; if it's a directory, your tool should look for and find all .txt files within that folder, processing each one.
-# your tool should generate one .html output file for each input file. For example, if I run the tool on doc.txt a new doc.html file will be generated.
-# you need to deal with marking-up paragraphs: every blank line should be considered a paragraph limit and the text transformed into <p>...</p>. For example, given the following input file:
-# your tool write output file(s) to a ./til folder by default. That is, if I run the tool, I should end-up with a new folder called til in the current directory, and it should contain one or more .html files. Each time the tool is run, an existing til folder should first be removed so that til always contains the latest output.
-
 from typing import Optional
 
 import typer
