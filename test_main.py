@@ -156,6 +156,7 @@ def test_plain_md_conversion_conv():
     with runner.isolated_filesystem():
         examples_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "examples")
         results = 5
+        result = 7
         shutil.copytree(examples_dir, "examples")
         WriteHTML("# Hello World ", "example", "examples")
         assert os.path.isfile("examples/example.html") is True
