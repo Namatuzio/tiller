@@ -78,6 +78,11 @@ def test_main_dir_not_exist_def():
     result = runner.invoke(app, ["notexist"])
     assert "Error: Invalid value for 'DIR': Path 'notexist' does not exist." in result.output
 
+## Test file not exist
+def test_main_file_not_exist_def():
+    result = runner.invoke(app, ["examples/invalidExample.txt"])
+    assert "Error: Invalid value for 'DIR': Path 'examples/invalidExample.txt' does not exist." in result.output
+
 ## Test dir is file
 def test_main_dir_file_def():
     with runner.isolated_filesystem():
