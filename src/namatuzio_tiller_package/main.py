@@ -8,7 +8,7 @@ import markdown
 import tomllib
 import sys
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 __help__ = """Usage: main.py [OPTIONS] DIR \n
   Convert .txt or .md files to .html files.\n
 Arguments:

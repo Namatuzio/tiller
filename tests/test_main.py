@@ -1,6 +1,6 @@
 import os
 from typer.testing import CliRunner
-from src.namatuzio_tiller_package.main import CheckFileExtension, WriteHTML, app
+from src.namatuzio_tiller_package.main import CheckFileExtension, WriteHTML, app, __version__
 import shutil
 
 runner = CliRunner()
@@ -10,7 +10,7 @@ runner = CliRunner()
 ## Test Version Flag
 def test_main_version_arg():
     result = runner.invoke(app, ["-v"])
-    assert "Tiller Version: 0.1.0" in result.output
+    assert "Tiller Version: " + __version__ in result.output
 
 ## Test Help Flag
 def test_main_help_arg():

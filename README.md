@@ -1,6 +1,7 @@
 # Tiller
 Tiller is a command line interface for transforming text and markdown files into HTML files. 
-[Samples can be found here!](https://namatuzio.github.io/tiller/)
+[Samples can be found here!](https://namatuzio.github.io/tiller/).
+The project can be found on PyPI [here](https://test.pypi.org/project/namatuzio-tiller/#description).
 
 ## Features
 
@@ -11,6 +12,14 @@ Tiller is a command line interface for transforming text and markdown files into
 - Language support for generated HTML file
 - TOML config file support
 
+## Insntallation
+
+Please note that Tiller requires Python 3.11 or higher to run due to the use of TOMLib.
+
+```cmd
+pip install -i https://test.pypi.org/simple/ namatuzio-tiller
+``` 
+
 ## Options:
 
     --version, -v  Print the current version of Tiller.
@@ -19,11 +28,16 @@ Tiller is a command line interface for transforming text and markdown files into
     --output, -o   Change the output directory of the .html files.
     --lang, -l    Specify the language of the generated HTML file.
 
-## Usage:
+## Package Usage:
+
+    tiller [OPTIONS] DIR
+
+## Local Usage:
 
     .\main.py [OPTIONS] DIR
+    > note this must be ran from src/namatuzio_tiller_package
 
-## Examples:
+## Local Examples:
 
 ### Transform a file through a relative path:
 
