@@ -12,7 +12,7 @@ The project can be found on PyPI [here](https://test.pypi.org/project/namatuzio-
 - Language support for generated HTML file
 - TOML config file support
 
-## Insntallation
+## Installation
 
 Please note that Tiller requires Python 3.11 or higher to run due to the use of TOMLib.
 
