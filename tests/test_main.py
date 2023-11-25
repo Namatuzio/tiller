@@ -1,8 +1,6 @@
 import os
 from typer.testing import CliRunner
-from main import CheckFileExtension
-from main import WriteHTML
-from main import app
+from src.namatuzio_tiller_package.main import CheckFileExtension, WriteHTML, app
 import shutil
 
 runner = CliRunner()
