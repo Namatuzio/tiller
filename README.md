@@ -261,6 +261,6 @@ Options:
 ```
 .\main.py --version (or -v)
 
-Tiller Version: 0.1.0 
+Tiller Version: 1.1.0 
 ```
 
